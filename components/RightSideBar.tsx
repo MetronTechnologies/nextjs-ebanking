@@ -2,6 +2,8 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import BankCard from "@/components/BankCard";
+import {RightSidebarProps} from "@/types";
+import {parseStringify} from "@/lib/utils";
 
 const RightSideBar = ({user, transactions, banks}: RightSidebarProps) => {
     return (
@@ -11,15 +13,15 @@ const RightSideBar = ({user, transactions, banks}: RightSidebarProps) => {
                 <div className="profile">
                     <div className="profile-img">
                         <span className={'text-5xl font-bold text-blue-500'}>
-                            {user.firstName[0]}
+                            {user?.name[0]}
                         </span>
                     </div>
                     <div className="profile-details">
                         <h1 className={'profile-name'}>
-                            {user.firstName} {user.lastName}
+                            {user?.name}
                         </h1>
                         <p className="profile-email">
-                            {user.email}
+                            {user?.email}
                         </p>
                     </div>
                 </div>
@@ -51,7 +53,7 @@ const RightSideBar = ({user, transactions, banks}: RightSidebarProps) => {
                                 <BankCard
                                     key={banks[0].id}
                                     account={banks[0]}
-                                    userName={`${user.firstName} ${user.lastName}`}
+                                    userName={user?.name}
                                     showBalance={false}
                                 />
                             </div>
@@ -61,7 +63,7 @@ const RightSideBar = ({user, transactions, banks}: RightSidebarProps) => {
                                         <BankCard
                                             key={banks[1].id}
                                             account={banks[1]}
-                                            userName={`${user.firstName} ${user.lastName}`}
+                                            userName={user?.name}
                                             showBalance={false}
                                         />
                                     </div>

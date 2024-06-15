@@ -1,0 +1,58 @@
+'use server';
+
+
+import {signInProps, SignUpParams} from "@/types";
+import {createAdminClient, createSessionClient} from "@/lib/appwrite";
+import {ID} from "node-appwrite";
+import {cookies} from "next/headers";
+import {parseStringify} from "@/lib/utils";
+
+export const signIn = async ({email, password}: signInProps) => {
+    try{
+        const {account} = await createAdminClient();
+        const response = await account.createEmailPasswordSession(email, password);
+        return parseStringify(response);
+    } catch (e){
+        console.error('Error signing in ', e)
+    }
+}
+
+export const signUp = async (userData: SignUpParams) => {
+    const {email, password, firstName, lastName} = userData;
+    try{
+        const acc = await createAdminClient();
+        const {account} = acc;
+        const newUserAccount = await account.create(ID.unique(), email, password, `${firstName} ${lastName}`);
+        const session = await account.createEmailPasswordSession(email, password);
+        cookies().set('appwrite-session', session.secret, {
+            path: '/',
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: true
+        });
+        return parseStringify(newUserAccount);
+    } catch (e){
+        console.error('Error signing up ', e)
+    }
+}
+
+export const getLoggedInUser = async() => {
+    try{
+        const {account} = await createSessionClient();
+        const user = await account.get();
+        return parseStringify(user);
+    } catch (e) {
+        console.error('Error getting loggedIn user ', e);
+        return null;
+    }
+}
+
+export const logOutAccount = async() => {
+  try{
+      const {account} =  await createSessionClient();
+      cookies().delete('appwrite-session');
+      await account.deleteSession('current');
+  } catch (e) {
+      return null
+  }
+}

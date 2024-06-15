@@ -2,8 +2,10 @@ import React from 'react';
 import Link from "next/link";
 import {formatAmount} from "@/lib/utils";
 import Image from "next/image";
+import {CreditCardProps} from "@/types";
 
 const BankCard = ({account, userName, showBalance=true}: CreditCardProps) => {
+    console.log(userName);
     return (
         <div className={'flex flex-col'}>
             <Link
