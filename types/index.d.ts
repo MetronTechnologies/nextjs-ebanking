@@ -146,6 +146,7 @@ declare interface CreditCardProps {
   account: Account;
   userName: string;
   showBalance?: boolean;
+  view: string;
 }
 
 declare interface BankInfoProps {
@@ -309,7 +310,7 @@ declare interface getUserInfoProps {
 }
 
 declare interface exchangePublicTokenProps {
-  publicToken: string;
+  public_token: string;
   user: User;
 }
 

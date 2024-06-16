@@ -110,7 +110,7 @@
   }
 
   .home-content {
-    @apply no-scrollbar flex w-full flex-1 flex-col gap-8 px-5 sm:px-8 py-7 lg:py-12 xl:max-h-screen xl:overflow-y-scroll;
+    @apply no-scrollbar lg:px-5 flex w-full flex-1 flex-col gap-8 sm:px-8 py-7 lg:py-12 xl:max-h-screen xl:overflow-y-scroll;
   }
 
   .home-header {
@@ -134,16 +134,13 @@
   }
 
   .recent-transactions {
-    @apply flex w-full flex-col gap-6;
+    @apply flex w-full flex-col gap-4;
   }
 
   .view-all-btn {
     @apply text-14 rounded-lg border border-gray-300 px-4 py-2.5 font-semibold text-gray-700;
   }
 
-  .recent-transactions {
-    @apply flex w-full flex-col gap-6;
-  }
 
   .recent-transactions-label {
     @apply text-20 md:text-24 font-semibold text-gray-900;

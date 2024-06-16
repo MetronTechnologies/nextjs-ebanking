@@ -3,19 +3,19 @@ import Link from "next/link";
 import {formatAmount} from "@/lib/utils";
 import Image from "next/image";
 import {CreditCardProps} from "@/types";
+import Copy from "@/components/Copy";
 
-const BankCard = ({account, userName, showBalance=true}: CreditCardProps) => {
-    console.log(userName);
+const BankCard = ({account, userName, showBalance=true, view}: CreditCardProps) => {
     return (
         <div className={'flex flex-col'}>
             <Link
-                href={'/'}
-                className={'bank-card'}
+                href={`/transaction-history/?id=${account.appwriteItemId}`}
+                className={`bank-card ${view === 'home' ? 'min-w-[295px]' : 'min-w-[325px]'}`}
             >
                 <div className="bank-card_content">
                     <div className="">
                         <h1 className="text-16 font-semibold text-white">
-                            {account.name || userName}
+                            {account.name}
                         </h1>
                         <p className="font-ibm-plex-serif font-black text-white">
                             {formatAmount(account.currentBalance)}
@@ -33,7 +33,7 @@ const BankCard = ({account, userName, showBalance=true}: CreditCardProps) => {
                         <p className="text-14 font-semibold tracking-[1.1px] text-white">
                             &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679; &#9679;&#9679;&#9679;&#9679;&nbsp;
                             <span className="text-16">
-                                {account.mask || 1234}
+                                {account?.mask}
                             </span>
                         </p>
                     </article>
@@ -62,6 +62,11 @@ const BankCard = ({account, userName, showBalance=true}: CreditCardProps) => {
 
                 />
             </Link>
+            {
+                showBalance && (
+                    <Copy title={account?.shareableId}/>
+                )
+            }
         </div>
     );
 };
